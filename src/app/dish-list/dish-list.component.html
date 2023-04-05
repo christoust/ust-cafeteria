@@ -1,0 +1,50 @@
+<h1>UST Cafeteria</h1>
+<h1>Available Dishes</h1>
+
+<div class="search-container">
+  <label>Search:</label>
+  <input type="text" [(ngModel)]="searchTerm" name="searchTerm" (input)="searchDishes()">
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="filteredDishes.length > 0; else noDishes">
+      <tr *ngFor="let dish of filteredDishes; let i = index">
+        <td>{{ dish.name }}</td>
+        <td>{{ dish.description }}</td>
+        <td>{{ dish.price }}</td>
+        <td>
+          <button (click)="deleteDish(i)">Delete</button>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #noDishes>
+      <tr>
+        <td colspan="4" class="no-data">No dishes available</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>
+
+<h2>Add a New Dish</h2>
+
+<form>
+  <label>Name</label>
+  <input type="text" name="dishName" [(ngModel)]="newDish.name">
+
+  <label>Description</label>
+  <textarea name="description" [(ngModel)]="newDish.description"></textarea>
+
+  <label>Price</label>
+  <input type="number" name="price" [(ngModel)]="newDish.price">
+
+  <button type="submit" (click)="addDish()">Add Dish</button>
+</form>
